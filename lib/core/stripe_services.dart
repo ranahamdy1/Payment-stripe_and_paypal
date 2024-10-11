@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 class StripeServices{
+  //1- createPaymentIntent
   final ApiServices apiServices= ApiServices();
   Future<PaymentIntentModel> createPaymentIntent(PaymentIntentInputModel paymentIntentInputModel )async {
     var response = await apiServices.post(
@@ -18,6 +19,7 @@ class StripeServices{
     return paymentIntentModel;
   }
 
+  //2- initPaymentSheet
   Future initPaymentSheet({required String paymentIntentClientSecret})async{
     await Stripe.instance.initPaymentSheet(paymentSheetParameters: SetupPaymentSheetParameters(
       paymentIntentClientSecret: paymentIntentClientSecret,
@@ -26,11 +28,12 @@ class StripeServices{
     ));
   }
 
-
+  //3- displayPaymentSheet
   Future displayPaymentSheet()async{
     await Stripe.instance.presentPaymentSheet();
   }
 
+  //method to do 3 method (createPaymentIntent, initPaymentSheet, displayPaymentSheet)
   Future makePayment({required PaymentIntentInputModel paymentIntentInputModel}) async{
     var paymentIntentModel = await createPaymentIntent(paymentIntentInputModel);
     await initPaymentSheet(paymentIntentClientSecret: paymentIntentModel.clientSecret!);

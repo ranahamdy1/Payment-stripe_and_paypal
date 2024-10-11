@@ -2,9 +2,10 @@ import 'package:checkout_payment_ui/Features/checkout/data/models/payment_intent
 import 'package:dartz/dartz.dart';
 
 abstract class CheckoutRepo{
-  Future<Either<Failure, void>> makePayment(
-  {required PaymentIntentInputModel paymentIntentInputModel }
-      );
+  Future<Either<Failure, void>> makePayment({
+    required PaymentIntentInputModel paymentIntentInputModel
+  }
+  );
 }
 abstract class Failure{
   final String errMessage;
